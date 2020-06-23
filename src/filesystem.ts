@@ -65,6 +65,8 @@ export class FileSystem {
 
   private preparePaths() {
     const components = this.config.final.components as ComponentSchema[];
+    console.log("components");
+    console.log(components);
     const excludePatterns = [
       ...(this.config.final.excludePatterns as string[]),
     ];
@@ -72,6 +74,7 @@ export class FileSystem {
     const targetedFolders: string[] = [];
 
     components.forEach((component) => {
+      console.log(component);
       includePatterns.push(...component.patterns);
       targetedFolders.push(...component.targetFolders);
 
