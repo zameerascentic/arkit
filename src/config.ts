@@ -93,7 +93,7 @@ export class Config implements ConfigBase {
       options.first && options.first.length ? options.first : undefined;
     const userComponents = userConfig && userConfig.components;
     const generatedGroups: GroupSchema[] = [
-      { first: true, components: ["Component", "Vue"] },
+      { first: true, components: ["Component", "Vue", "RNComponents"] },
       { type: "Dependencies", components: ["Dependency"] },
     ];
 

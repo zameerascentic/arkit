@@ -65,7 +65,7 @@ class Config {
         const firstOption = options.first && options.first.length ? options.first : undefined;
         const userComponents = userConfig && userConfig.components;
         const generatedGroups = [
-            { first: true, components: ["Component", "Vue"] },
+            { first: true, components: ["Component", "Vue", "RNComponents"] },
             { type: "Dependencies", components: ["Dependency"] },
         ];
         if (firstOption) {
