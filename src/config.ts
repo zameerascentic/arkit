@@ -19,7 +19,7 @@ const DEFAULT_COMPONENTS: ComponentSchema[] = [
   {
     type: "RNComponents",
     patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-    targetFolders: [""],
+    targetFolders: ["constants", "modules", "pages"],
   },
   {
     type: "Component",

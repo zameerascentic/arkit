@@ -13,7 +13,7 @@ const DEFAULT_COMPONENTS = [
     {
         type: "RNComponents",
         patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-        targetFolders: [""],
+        targetFolders: ["constants", "modules", "pages"],
     },
     {
         type: "Component",
