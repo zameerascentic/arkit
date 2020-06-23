@@ -15,13 +15,13 @@ export const getStats = (
     const stats = fs.statSync(path);
     return {
       isDirectory: stats.isDirectory(),
-      isFile: stats.isFile()
+      isFile: stats.isFile(),
     };
   } catch (e) {
     warn(e);
     return {
       isDirectory: false,
-      isFile: false
+      isFile: false,
     };
   }
 };
@@ -36,7 +36,8 @@ export const getPaths = (
   directory: string,
   includePatterns: string[],
   excludePatterns: string[],
-  history: string[] = []
+  history: string[] = [],
+  targetFolders: string[] = []
 ): string[] => {
   const root = path.join(mainDirectory, directory);
 
@@ -64,7 +65,7 @@ export const getPaths = (
       const stats = getStats(fullPath);
       const isIncluded = match(filePath, includePatterns);
 
-      if (stats.isDirectory) {
+      if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
         if (isIncluded) {
           suitablePaths.push(path.join(fullPath, "**"));
         } else {
@@ -73,7 +74,8 @@ export const getPaths = (
             filePath,
             includePatterns,
             excludePatterns,
-            history
+            history,
+            targetFolders
           );
           suitablePaths.push(...childPaths);
         }
@@ -90,11 +92,15 @@ export const match = (filepath: string, patterns?: string[]): boolean => {
   return !patterns || !patterns.length || nanomatch.some(filepath, patterns);
 };
 
+export const nameMatch = (filepath: string, patterns?: string[]): boolean => {
+  return !patterns || !patterns.length || nanomatch.some(filepath, patterns);
+};
+
 export const find = (
   filepath: string,
   patterns: string[]
 ): string | undefined => {
-  return patterns.find(pattern => nanomatch(filepath, pattern).length);
+  return patterns.find((pattern) => nanomatch(filepath, pattern).length);
 };
 
 export const safeRequire = <T>(path: string): T | undefined => {
@@ -122,7 +128,7 @@ export const verifyComponentFilters = (
 
   const matchesComponents =
     !filters.components ||
-    filters.components.some(type => type === component.type);
+    filters.components.some((type) => type === component.type);
 
   return matchesPatterns && matchesComponents;
 };
@@ -142,19 +148,19 @@ export const request = (path, payload): Promise<Buffer> => {
           method: "post",
           headers: {
             "Content-Type": "text/plain",
-            "Content-Length": payload.length
-          }
+            "Content-Length": payload.length,
+          },
         },
-        res => {
+        (res) => {
           const data: Buffer[] = [];
 
-          res.on("data", chunk => data.push(chunk));
+          res.on("data", (chunk) => data.push(chunk));
           res.on("end", () => {
             resolve(Buffer.concat(data));
           });
         }
       )
-      .on("error", err => {
+      .on("error", (err) => {
         reject(err);
       });
 
@@ -168,7 +174,7 @@ export const getAllComponents = (
   sortByName = false
 ): Component[] => {
   const components = ([] as Component[]).concat(
-    ...[...layers.values()].map(components => [...components])
+    ...[...layers.values()].map((components) => [...components])
   );
 
   if (sortByName) {
@@ -187,7 +193,7 @@ export const convertToRelative = (
   root: string,
   excludes: string[] = []
 ): string[] => {
-  return paths.map(filepath => {
+  return paths.map((filepath) => {
     if (excludes.includes(filepath)) {
       return filepath;
     }

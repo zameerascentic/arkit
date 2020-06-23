@@ -91,8 +91,6 @@ export class Parser {
       let sourceFileImports: string[] | undefined;
 
       if (TypeGuards.isImportTypeNode(statement)) {
-        console.log("dependencies");
-        console.log(statement);
         try {
           const moduleSpecifier = eval(statement.getArgument().getText());
           sourceFileImports = this.addModule(
@@ -113,8 +111,6 @@ export class Parser {
         TypeGuards.isVariableStatement(statement) ||
         TypeGuards.isExpressionStatement(statement)
       ) {
-        console.log("variable or expression");
-        console.log(statement);
         const text = statement.getText();
         const [match, moduleSpecifier, namedImport] = Array.from(
           REQUIRE_RE.exec(text) || []
@@ -135,8 +131,6 @@ export class Parser {
         TypeGuards.isImportDeclaration(statement) ||
         TypeGuards.isExportDeclaration(statement)
       ) {
-        console.log("import or export declaration");
-        console.log(statement);
         let moduleSpecifier: string | undefined;
         let structure:
           | ImportDeclarationStructure

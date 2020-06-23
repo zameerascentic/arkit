@@ -40,7 +40,7 @@ export class FileSystem {
         this.config.directory,
         {
           "~/*": ["*"],
-          "@/*": ["*", "src/*"]
+          "@/*": ["*", "src/*"],
         },
         undefined,
         true
@@ -59,19 +59,21 @@ export class FileSystem {
     this.project = new Project({
       tsConfigFilePath: this.tsConfigFilePath,
       addFilesFromTsConfig: false,
-      skipFileDependencyResolution: true
+      skipFileDependencyResolution: true,
     });
   }
 
   private preparePaths() {
     const components = this.config.final.components as ComponentSchema[];
     const excludePatterns = [
-      ...(this.config.final.excludePatterns as string[])
+      ...(this.config.final.excludePatterns as string[]),
     ];
     const includePatterns: string[] = [];
+    const targetedFolders: string[] = [];
 
-    components.forEach(component => {
+    components.forEach((component) => {
       includePatterns.push(...component.patterns);
+      targetedFolders.push(...component.targetFolders);
 
       if (component.excludePatterns) {
         excludePatterns.push(...component.excludePatterns);
@@ -83,8 +85,10 @@ export class FileSystem {
       this.config.directory,
       "",
       includePatterns,
-      excludePatterns
-    ).forEach(path => {
+      excludePatterns,
+      [],
+      targetedFolders
+    ).forEach((path) => {
       if (path.endsWith("**")) {
         this.folderPaths.push(path);
       } else {
@@ -105,7 +109,7 @@ export class FileSystem {
       );
       return resolveSync(moduleSpecifier, {
         basedir: sourceFile.getDirectoryPath(),
-        extensions: this.config.extensions
+        extensions: this.config.extensions,
       });
     } catch (e) {
       return this.resolveTsModule(moduleSpecifier);
@@ -126,7 +130,7 @@ export class FileSystem {
     if (!modulePath) return;
 
     return resolveSync(modulePath, {
-      extensions: this.config.extensions
+      extensions: this.config.extensions,
     });
   }
 }

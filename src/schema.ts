@@ -30,6 +30,9 @@ export interface ComponentSchema {
   /** File patterns to include, e.g. ["**\/*.model.ts"] */
   patterns: string[];
 
+  /** Folders to target */
+  targetFolders: string[];
+
   /** File patterns to exclude, e.g. ["**\/*.test.ts"] */
   excludePatterns?: string[];
 
@@ -46,7 +49,7 @@ export interface ComponentSchema {
 export enum ComponentNameFormat {
   BASE_NAME = "base",
   FULL_NAME = "full",
-  COMPLETE_PATH = "complete"
+  COMPLETE_PATH = "complete",
 }
 
 export interface OutputSchema {
@@ -96,10 +99,10 @@ export interface ComponentFilters {
 
 export enum OutputDirection {
   HORIZONTAL = "horizontal",
-  VERTICAL = "vertical"
+  VERTICAL = "vertical",
 }
 
 export enum OutputFormat {
   SVG = "svg",
-  PNG = "png"
+  PNG = "png",
 }
