@@ -5,7 +5,7 @@ import {
   array,
   match,
   verifyComponentFilters,
-  info
+  info,
 } from "./utils";
 import {
   ComponentFilters,
@@ -17,7 +17,7 @@ import {
   Components,
   EMPTY_LAYER,
   Layers,
-  ConfigBase
+  ConfigBase,
 } from "./types";
 
 export class Generator {
@@ -52,7 +52,7 @@ export class Generator {
           const name = this.getComponentName(filepath, schema);
           const file = this.files[filename];
           const imports = Object.keys(file.imports);
-          const isClass = file.exports.some(exp => !!exp.match(/^[A-Z]/));
+          const isClass = file.exports.some((exp) => !!exp.match(/^[A-Z]/));
 
           components.set(filename, {
             name,
@@ -61,7 +61,7 @@ export class Generator {
             isClass,
             isImported: false,
             type: schema.type,
-            layer: EMPTY_LAYER
+            layer: EMPTY_LAYER,
           });
         }
 
@@ -91,7 +91,7 @@ export class Generator {
     const grouppedComponents = new Map<string, Component>();
     const layers: Layers = new Map();
 
-    groups.forEach(group => {
+    groups.forEach((group) => {
       const layerType = group.type || EMPTY_LAYER;
 
       if (!layers.has(layerType)) {
@@ -168,7 +168,7 @@ export class Generator {
     filenames.add(component.filename);
 
     if (!component.last) {
-      component.imports.forEach(importedFilename => {
+      component.imports.forEach((importedFilename) => {
         const importedComponent = components.get(importedFilename);
         if (importedComponent) {
           this.collectImportedFilenames(
@@ -224,7 +224,7 @@ export class Generator {
 
     for (const component of components.values()) {
       component.imports = component.imports
-        .filter(importedFilename => components.has(importedFilename))
+        .filter((importedFilename) => components.has(importedFilename))
         .sort((a, b) => {
           const componentA = components.get(a)!;
           const componentB = components.get(b)!;
@@ -240,11 +240,11 @@ export class Generator {
     filename: string
   ): ComponentSchema | undefined {
     const componentSchemas = this.config.final.components as ComponentSchema[];
-    const componentSchema = componentSchemas.find(componentSchema => {
+    const componentSchema = componentSchemas.find((componentSchema) => {
       const outputFilters: ComponentFilters[] = array(output.groups) || [];
       const includedInOutput =
         !outputFilters.length ||
-        outputFilters.some(outputFilter =>
+        outputFilters.some((outputFilter) =>
           verifyComponentFilters(
             outputFilter,
             componentSchema,

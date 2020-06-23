@@ -1,22 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Config = void 0;
 const path = require("path");
 const types_1 = require("./types");
 const utils_1 = require("./utils");
 const DEFAULT_COMPONENTS = [
     {
         type: "Dependency",
-        patterns: ["node_modules/*"]
+        patterns: ["node_modules/*"],
+        targetFolders: [""],
+    },
+    {
+        type: "RNComponents",
+        patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
+        targetFolders: [""],
     },
     {
         type: "Component",
-        patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"]
+        patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
+        targetFolders: [""],
     },
     {
         type: "Vue",
         format: types_1.ComponentNameFormat.FULL_NAME,
-        patterns: ["**/*.vue"]
-    }
+        patterns: ["**/*.vue"],
+        targetFolders: [""],
+    },
 ];
 class Config {
     constructor(options) {
@@ -29,7 +38,7 @@ class Config {
         return {
             components: this.getFinalComponents(options, userConfig),
             excludePatterns: this.getExcludedPatterns(options, userConfig),
-            output: this.getFinalOutputs(options, userConfig)
+            output: this.getFinalOutputs(options, userConfig),
         };
     }
     getUserConfig(options) {
@@ -57,14 +66,14 @@ class Config {
         const userComponents = userConfig && userConfig.components;
         const generatedGroups = [
             { first: true, components: ["Component", "Vue"] },
-            { type: "Dependencies", components: ["Dependency"] }
+            { type: "Dependencies", components: ["Dependency"] },
         ];
         if (firstOption) {
             generatedGroups[0].components = undefined;
             generatedGroups[0].patterns = firstOption;
             generatedGroups.push({}); // everything else
         }
-        return initialOutputs.map(output => (Object.assign(Object.assign({}, output), { path: utils_1.array(output.path || outputOption || "svg"), groups: output.groups || (!userComponents ? generatedGroups : undefined) })));
+        return initialOutputs.map((output) => (Object.assign(Object.assign({}, output), { path: utils_1.array(output.path || outputOption || "svg"), groups: output.groups || (!userComponents ? generatedGroups : undefined) })));
     }
     getExcludedPatterns(options, userConfig) {
         const excludePatterns = [];

@@ -29,7 +29,7 @@ export class Converter {
     if (shouldConvertAndSave || shouldConvertAndOutput) {
       debug("Converting", ext ? fullExportPath : pathOrType);
       return this.convertToImage(puml, ext || pathOrType)
-        .then(image => {
+        .then((image) => {
           if (shouldConvertAndSave) {
             debug("Saving", fullExportPath, image.length);
             return this.save(fullExportPath, image);
@@ -37,7 +37,7 @@ export class Converter {
 
           return image.toString();
         })
-        .catch(err => {
+        .catch((err) => {
           throw err;
         });
     } else {
@@ -71,8 +71,8 @@ export class Converter {
 
       this.requestChain = this.requestChain.then(() => {
         return request(`/${path[0]}`, puml)
-          .then(result => resolve(result))
-          .catch(err => debug(err));
+          .then((result) => resolve(result))
+          .catch((err) => debug(err));
       });
     });
   }

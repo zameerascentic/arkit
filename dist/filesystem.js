@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FileSystem = void 0;
 const tsconfig_paths_1 = require("tsconfig-paths");
 const logger_1 = require("./logger");
 const ts_morph_1 = require("ts-morph");
@@ -25,7 +26,7 @@ class FileSystem {
         else {
             this.tsResolve = tsconfig_paths_1.createMatchPath(this.config.directory, {
                 "~/*": ["*"],
-                "@/*": ["*", "src/*"]
+                "@/*": ["*", "src/*"],
             }, undefined, true);
         }
     }
@@ -40,23 +41,25 @@ class FileSystem {
         this.project = new ts_morph_1.Project({
             tsConfigFilePath: this.tsConfigFilePath,
             addFilesFromTsConfig: false,
-            skipFileDependencyResolution: true
+            skipFileDependencyResolution: true,
         });
     }
     preparePaths() {
         const components = this.config.final.components;
         const excludePatterns = [
-            ...this.config.final.excludePatterns
+            ...this.config.final.excludePatterns,
         ];
         const includePatterns = [];
-        components.forEach(component => {
+        const targetedFolders = [];
+        components.forEach((component) => {
             includePatterns.push(...component.patterns);
+            targetedFolders.push(...component.targetFolders);
             if (component.excludePatterns) {
                 excludePatterns.push(...component.excludePatterns);
             }
         });
         logger_1.info("Searching files...");
-        utils_1.getPaths(this.config.directory, "", includePatterns, excludePatterns).forEach(path => {
+        utils_1.getPaths(this.config.directory, "", includePatterns, excludePatterns, [], targetedFolders).forEach((path) => {
             if (path.endsWith("**")) {
                 this.folderPaths.push(path);
             }
@@ -70,7 +73,7 @@ class FileSystem {
             logger_1.trace(moduleSpecifier, sourceFile.getDirectoryPath(), this.config.extensions);
             return resolve_1.sync(moduleSpecifier, {
                 basedir: sourceFile.getDirectoryPath(),
-                extensions: this.config.extensions
+                extensions: this.config.extensions,
             });
         }
         catch (e) {
@@ -85,7 +88,7 @@ class FileSystem {
         if (!modulePath)
             return;
         return resolve_1.sync(modulePath, {
-            extensions: this.config.extensions
+            extensions: this.config.extensions,
         });
     }
 }

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Converter = void 0;
 const types_1 = require("./types");
 const path = require("path");
 const fs = require("fs");
@@ -22,14 +23,14 @@ class Converter {
         if (shouldConvertAndSave || shouldConvertAndOutput) {
             logger_1.debug("Converting", ext ? fullExportPath : pathOrType);
             return this.convertToImage(puml, ext || pathOrType)
-                .then(image => {
+                .then((image) => {
                 if (shouldConvertAndSave) {
                     logger_1.debug("Saving", fullExportPath, image.length);
                     return this.save(fullExportPath, image);
                 }
                 return image.toString();
             })
-                .catch(err => {
+                .catch((err) => {
                 throw err;
             });
         }
@@ -55,8 +56,8 @@ class Converter {
             }
             this.requestChain = this.requestChain.then(() => {
                 return utils_1.request(`/${path[0]}`, puml)
-                    .then(result => resolve(result))
-                    .catch(err => logger_1.debug(err));
+                    .then((result) => resolve(result))
+                    .catch((err) => logger_1.debug(err));
             });
         });
     }

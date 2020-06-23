@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Parser = void 0;
 const os_1 = require("os");
 const ts_morph_1 = require("ts-morph");
 const utils_1 = require("./utils");
@@ -18,14 +19,14 @@ class Parser {
         const progress = new ProgressBar("Parsing :bar", {
             clear: true,
             total: this.fs.folderPaths.length + this.fs.filePaths.length,
-            width: process.stdout.columns
+            width: process.stdout.columns,
         });
         utils_1.info("Parsing", progress.total, "files");
-        this.fs.folderPaths.forEach(fullPath => {
+        this.fs.folderPaths.forEach((fullPath) => {
             files[fullPath] = { exports: [], imports: {} };
             progress.tick();
         });
-        this.fs.filePaths.forEach(fullPath => {
+        this.fs.filePaths.forEach((fullPath) => {
             try {
                 files[fullPath] = this.parseFile(fullPath);
             }
@@ -108,7 +109,7 @@ class Parser {
                         sourceFileImports.push(importStructure.defaultImport);
                     }
                     if (importStructure.namedImports instanceof Array) {
-                        sourceFileImports.push(...importStructure.namedImports.map(namedImport => typeof namedImport === "string" ? namedImport : namedImport.name));
+                        sourceFileImports.push(...importStructure.namedImports.map((namedImport) => typeof namedImport === "string" ? namedImport : namedImport.name));
                     }
                     if (!sourceFileImports.length && !importStructure.namedImports) {
                         utils_1.warn("IMPORT", sourceFile.getBaseName(), structure);
@@ -125,7 +126,7 @@ class Parser {
                 if (ts_morph_1.TypeGuards.isVariableStatement(statement)) {
                     try {
                         const structure = statement.getStructure();
-                        exports.push(...structure.declarations.map(declaration => declaration.name));
+                        exports.push(...structure.declarations.map((declaration) => declaration.name));
                     }
                     catch (e) {
                         utils_1.warn(e);

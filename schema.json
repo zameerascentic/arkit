@@ -33,6 +33,13 @@
                     },
                     "type": "array"
                 },
+                "targetFolders": {
+                    "description": "Folders to target",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
                 "type": {
                     "description": "Component type, e.g. \"Model\"",
                     "type": "string"
@@ -40,6 +47,7 @@
             },
             "required": [
                 "patterns",
+                "targetFolders",
                 "type"
             ],
             "type": "object"

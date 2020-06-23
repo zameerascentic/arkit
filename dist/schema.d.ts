@@ -24,6 +24,8 @@ export interface ComponentSchema {
     type: string;
     /** File patterns to include, e.g. ["**\/*.model.ts"] */
     patterns: string[];
+    /** Folders to target */
+    targetFolders: string[];
     /** File patterns to exclude, e.g. ["**\/*.test.ts"] */
     excludePatterns?: string[];
     /**

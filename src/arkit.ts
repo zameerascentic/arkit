@@ -11,7 +11,7 @@ import { Converter } from "./converter";
 const getOptions = (options?: Options): Options => {
   const opts: Options = {
     ...cli.argv,
-    ...options
+    ...options,
   };
 
   opts.directory = getAbsolute(opts.directory);
@@ -58,7 +58,7 @@ export const getOutputs = (config: Config): Promise<SavedString[]> => {
   const progress = new ProgressBar("Generating :bar", {
     total,
     clear: true,
-    width: process.stdout.columns
+    width: process.stdout.columns,
   });
 
   return Promise.all(
@@ -72,7 +72,7 @@ export const getOutputs = (config: Config): Promise<SavedString[]> => {
       const paths = array(output.path) as string[];
 
       for (const path of paths) {
-        const promise = converter.convert(path, puml).then(value => {
+        const promise = converter.convert(path, puml).then((value) => {
           progress.tick();
           return value;
         });

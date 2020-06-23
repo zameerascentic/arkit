@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.arkit = exports.getOutputs = exports.getConfig = void 0;
 const utils_1 = require("./utils");
 const config_1 = require("./config");
 const parser_1 = require("./parser");
@@ -40,7 +41,7 @@ exports.getOutputs = (config) => {
     const progress = new ProgressBar("Generating :bar", {
         total,
         clear: true,
-        width: process.stdout.columns
+        width: process.stdout.columns,
     });
     return Promise.all(outputs.reduce((promises, output) => {
         const layers = generator.generate(output);
@@ -49,7 +50,7 @@ exports.getOutputs = (config) => {
         progress.tick();
         const paths = utils_1.array(output.path);
         for (const path of paths) {
-            const promise = converter.convert(path, puml).then(value => {
+            const promise = converter.convert(path, puml).then((value) => {
                 progress.tick();
                 return value;
             });

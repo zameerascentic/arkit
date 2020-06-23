@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Generator = void 0;
 const path = require("path");
 const utils_1 = require("./utils");
 const types_1 = require("./types");
@@ -25,7 +26,7 @@ class Generator {
                 const name = this.getComponentName(filepath, schema);
                 const file = this.files[filename];
                 const imports = Object.keys(file.imports);
-                const isClass = file.exports.some(exp => !!exp.match(/^[A-Z]/));
+                const isClass = file.exports.some((exp) => !!exp.match(/^[A-Z]/));
                 components.set(filename, {
                     name,
                     filename,
@@ -33,7 +34,7 @@ class Generator {
                     isClass,
                     isImported: false,
                     type: schema.type,
-                    layer: types_1.EMPTY_LAYER
+                    layer: types_1.EMPTY_LAYER,
                 });
             }
             return components;
@@ -53,7 +54,7 @@ class Generator {
         const ungroupedComponents = new Map(allComponents);
         const grouppedComponents = new Map();
         const layers = new Map();
-        groups.forEach(group => {
+        groups.forEach((group) => {
             const layerType = group.type || types_1.EMPTY_LAYER;
             if (!layers.has(layerType)) {
                 layers.set(layerType, new Set());
@@ -106,7 +107,7 @@ class Generator {
             return;
         filenames.add(component.filename);
         if (!component.last) {
-            component.imports.forEach(importedFilename => {
+            component.imports.forEach((importedFilename) => {
                 const importedComponent = components.get(importedFilename);
                 if (importedComponent) {
                     this.collectImportedFilenames(importedComponent, components, filenames);
@@ -144,7 +145,7 @@ class Generator {
         const sortedComponents = new Map(Array.from(components.entries()).sort((a, b) => a[1].name.localeCompare(b[1].name)));
         for (const component of components.values()) {
             component.imports = component.imports
-                .filter(importedFilename => components.has(importedFilename))
+                .filter((importedFilename) => components.has(importedFilename))
                 .sort((a, b) => {
                 const componentA = components.get(a);
                 const componentB = components.get(b);
@@ -155,10 +156,10 @@ class Generator {
     }
     findComponentSchema(output, filename) {
         const componentSchemas = this.config.final.components;
-        const componentSchema = componentSchemas.find(componentSchema => {
+        const componentSchema = componentSchemas.find((componentSchema) => {
             const outputFilters = utils_1.array(output.groups) || [];
             const includedInOutput = !outputFilters.length ||
-                outputFilters.some(outputFilter => utils_1.verifyComponentFilters(outputFilter, componentSchema, this.config.directory));
+                outputFilters.some((outputFilter) => utils_1.verifyComponentFilters(outputFilter, componentSchema, this.config.directory));
             if (includedInOutput) {
                 return (!!componentSchema.patterns &&
                     utils_1.match(path.relative(this.config.directory, filename), componentSchema.patterns));

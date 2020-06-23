@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.trace = exports.debug = exports.info = exports.warn = exports.error = exports.fatal = void 0;
 const pino = require("pino");
 const logger = pino({
     name: "arkit",
@@ -7,8 +8,8 @@ const logger = pino({
     base: null,
     prettyPrint: {
         colorize: true,
-        translateTime: true
-    }
+        translateTime: true,
+    },
 });
 exports.fatal = logger.fatal.bind(logger);
 exports.error = logger.error.bind(logger);

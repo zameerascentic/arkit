@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OutputFormat = exports.OutputDirection = exports.ComponentNameFormat = void 0;
 /**
  * Component name formats
  */
