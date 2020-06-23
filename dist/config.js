@@ -46,6 +46,11 @@ class Config {
         };
     }
     getUserConfig(options) {
+        console.log("-");
+        console.log("directory and config");
+        console.log(this.directory);
+        console.log(options.config);
+        console.log("-");
         const userConfigPath = path.resolve(this.directory, options.config || "arkit");
         const userConfig = utils_1.safeRequire(userConfigPath);
         const packageJSONPath = path.resolve(this.directory, "package");

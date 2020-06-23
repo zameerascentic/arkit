@@ -60,6 +60,11 @@ export class Config implements ConfigBase {
   }
 
   private getUserConfig(options: Options): ConfigSchema | undefined {
+    console.log("-");
+    console.log("directory and config");
+    console.log(this.directory);
+    console.log(options.config);
+    console.log("-");
     const userConfigPath = path.resolve(
       this.directory,
       options.config || "arkit"
