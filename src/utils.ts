@@ -42,6 +42,7 @@ export const getPaths = (
   const root = path.join(mainDirectory, directory);
 
   console.log("getting paths");
+  console.log(targetFolders);
   if (history.includes(root)) {
     warn(`Skipping ${root} as it was parsed already`);
     return [];

@@ -41,6 +41,7 @@ exports.getMemoryUsage = () => {
 exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, history = [], targetFolders = []) => {
     const root = path.join(mainDirectory, directory);
     console.log("getting paths");
+    console.log(targetFolders);
     if (history.includes(root)) {
         logger_1.warn(`Skipping ${root} as it was parsed already`);
         return [];
