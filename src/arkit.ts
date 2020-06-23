@@ -40,6 +40,9 @@ export const getConfig = (options?: Options): Config => {
   info("Options");
   info(opts);
 
+  console.log("Options");
+  console.log(opts);
+
   return new Config(opts);
 };
 
@@ -89,6 +92,9 @@ export const arkit = (options?: Options): Promise<SavedString[]> => {
   const config = getConfig(options);
   info("Config");
   info(config);
+
+  console.log("config");
+  console.log(config);
 
   return getOutputs(config);
 };
