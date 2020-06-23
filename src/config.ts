@@ -14,23 +14,23 @@ const DEFAULT_COMPONENTS: ComponentSchema[] = [
   {
     type: "Dependency",
     patterns: ["node_modules/*"],
-    targetFolders: [""],
+    targetFolders: [],
   },
   {
     type: "RNComponents",
     patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-    targetFolders: [""],
+    targetFolders: [],
   },
   {
     type: "Component",
     patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-    targetFolders: [""],
+    targetFolders: [],
   },
   {
     type: "Vue",
     format: ComponentNameFormat.FULL_NAME,
     patterns: ["**/*.vue"],
-    targetFolders: [""],
+    targetFolders: [],
   },
 ];
 

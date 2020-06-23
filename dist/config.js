@@ -8,23 +8,23 @@ const DEFAULT_COMPONENTS = [
     {
         type: "Dependency",
         patterns: ["node_modules/*"],
-        targetFolders: [""],
+        targetFolders: [],
     },
     {
         type: "RNComponents",
         patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-        targetFolders: [""],
+        targetFolders: [],
     },
     {
         type: "Component",
         patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-        targetFolders: [""],
+        targetFolders: [],
     },
     {
         type: "Vue",
         format: types_1.ComponentNameFormat.FULL_NAME,
         patterns: ["**/*.vue"],
-        targetFolders: [""],
+        targetFolders: [],
     },
 ];
 class Config {
