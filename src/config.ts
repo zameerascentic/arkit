@@ -19,7 +19,7 @@ const DEFAULT_COMPONENTS: ComponentSchema[] = [
   {
     type: "RNComponents",
     patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-    targetFolders: ["modules", "pages"],
+    targetFolders: [""],
   },
   {
     type: "Component",
@@ -63,6 +63,8 @@ export class Config implements ConfigBase {
     const packageJSONPath = path.resolve(this.directory, "package");
     const packageJSON = safeRequire<any>(packageJSONPath);
 
+    console.log("userconfig");
+    console.log(userConfig);
     if (userConfig) {
       debug(`Found arkit config in ${userConfigPath}`);
       return userConfig;
@@ -79,6 +81,8 @@ export class Config implements ConfigBase {
     userConfig?: ConfigSchema
   ): ComponentSchema[] {
     const userComponents = userConfig && userConfig.components;
+    console.log("user componenets");
+    console.log(userComponents);
     return userComponents ? array(userComponents)! : DEFAULT_COMPONENTS;
   }
 

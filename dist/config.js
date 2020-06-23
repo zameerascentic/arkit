@@ -13,7 +13,7 @@ const DEFAULT_COMPONENTS = [
     {
         type: "RNComponents",
         patterns: ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx"],
-        targetFolders: ["modules", "pages"],
+        targetFolders: [""],
     },
     {
         type: "Component",
@@ -46,6 +46,8 @@ class Config {
         const userConfig = utils_1.safeRequire(userConfigPath);
         const packageJSONPath = path.resolve(this.directory, "package");
         const packageJSON = utils_1.safeRequire(packageJSONPath);
+        console.log("userconfig");
+        console.log(userConfig);
         if (userConfig) {
             utils_1.debug(`Found arkit config in ${userConfigPath}`);
             return userConfig;
@@ -57,6 +59,8 @@ class Config {
     }
     getFinalComponents(options, userConfig) {
         const userComponents = userConfig && userConfig.components;
+        console.log("user componenets");
+        console.log(userComponents);
         return userComponents ? utils_1.array(userComponents) : DEFAULT_COMPONENTS;
     }
     getFinalOutputs(options, userConfig) {
