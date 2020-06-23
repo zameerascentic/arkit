@@ -42,10 +42,15 @@ export class Config implements ConfigBase {
   constructor(options: Options) {
     this.directory = options.directory;
     this.final = this.getFinalConfig(options);
+    console.log("options");
+    console.log(options);
   }
 
   private getFinalConfig(options: Options): ConfigSchema {
     const userConfig = this.getUserConfig(options);
+
+    console.log("final config");
+    console.log(userConfig);
 
     return {
       components: this.getFinalComponents(options, userConfig),

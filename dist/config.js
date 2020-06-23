@@ -32,9 +32,13 @@ class Config {
         this.extensions = [".js", ".ts", ".jsx", ".tsx", ".vue"];
         this.directory = options.directory;
         this.final = this.getFinalConfig(options);
+        console.log("options");
+        console.log(options);
     }
     getFinalConfig(options) {
         const userConfig = this.getUserConfig(options);
+        console.log("final config");
+        console.log(userConfig);
         return {
             components: this.getFinalComponents(options, userConfig),
             excludePatterns: this.getExcludedPatterns(options, userConfig),
