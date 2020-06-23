@@ -40,6 +40,7 @@ exports.getMemoryUsage = () => {
 };
 exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, history = [], targetFolders = []) => {
     const root = path.join(mainDirectory, directory);
+    console.log("getting paths");
     if (history.includes(root)) {
         logger_1.warn(`Skipping ${root} as it was parsed already`);
         return [];
@@ -59,6 +60,8 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
+            console.log("checking " + fileName);
+            console.log("targetfolder " + targetFolders[0] + " " + targetFolders[1]);
             if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
                 if (isIncluded) {
                     suitablePaths.push(path.join(fullPath, "**"));

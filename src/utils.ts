@@ -41,6 +41,7 @@ export const getPaths = (
 ): string[] => {
   const root = path.join(mainDirectory, directory);
 
+  console.log("getting paths");
   if (history.includes(root)) {
     warn(`Skipping ${root} as it was parsed already`);
     return [];
@@ -65,6 +66,8 @@ export const getPaths = (
       const stats = getStats(fullPath);
       const isIncluded = match(filePath, includePatterns);
 
+      console.log("checking " + fileName);
+      console.log("targetfolder " + targetFolders[0] + " " + targetFolders[1]);
       if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
         if (isIncluded) {
           suitablePaths.push(path.join(fullPath, "**"));
