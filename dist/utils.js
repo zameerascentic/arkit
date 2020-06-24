@@ -59,8 +59,10 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
-            if ((targetFolders && targetFolders.indexOf(fileName) > 0) ||
-                stats.isDirectory) {
+            if ((targetFolders &&
+                targetFolders.indexOf(fileName) > 0 &&
+                stats.isDirectory) ||
+                (targetFolders.length === 0 && stats.isDirectory)) {
                 if (isIncluded) {
                     suitablePaths.push(path.join(fullPath, "**"));
                 }
@@ -69,8 +71,11 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
                     suitablePaths.push(...childPaths);
                 }
             }
-            else if ((targetFilenames && targetFilenames.indexOf(fileName)) ||
-                (stats.isFile && isIncluded)) {
+            else if ((targetFilenames &&
+                targetFilenames.indexOf(fileName) &&
+                stats.isFile &&
+                isIncluded) ||
+                (targetFilenames.length === 0 && stats.isFile && isIncluded)) {
                 suitablePaths.push(fullPath);
             }
         }
