@@ -51,10 +51,7 @@ export class Parser {
     this.fs.filePaths.forEach((fullPath) => {
       try {
         files[fullPath] = this.parseFile(fullPath);
-        console.log(fullPath);
       } catch (e) {
-        console.log("error ");
-        console.log(e);
         error(`Error parsing ${fullPath}`);
         trace(e);
       }

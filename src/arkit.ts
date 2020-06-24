@@ -46,6 +46,8 @@ export const getOutputs = (config: Config): Promise<SavedString[]> => {
   const files = new Parser(config).parse();
   trace("Parsed files");
   trace(files);
+  console.log("parsed files");
+  console.log(files);
 
   const outputs = config.final.output as OutputSchema[];
   const generator = new Generator(config, files);
