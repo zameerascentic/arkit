@@ -61,6 +61,10 @@ export const getPaths = (
     const notExcluded =
       !excludePatterns.length || !match(filePath, excludePatterns);
 
+    console.log("checking " + fileName);
+    console.log(...targetFilenames);
+    console.log(targetFilenames.indexOf(fileName) > 0);
+
     if (notExcluded) {
       const fullPath = path.join(root, fileName);
       const stats = getStats(fullPath);

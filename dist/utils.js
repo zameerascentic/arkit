@@ -55,6 +55,9 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
     return fs.readdirSync(root).reduce((suitablePaths, fileName) => {
         const filePath = path.join(directory, fileName);
         const notExcluded = !excludePatterns.length || !exports.match(filePath, excludePatterns);
+        console.log("checking " + fileName);
+        console.log(...targetFilenames);
+        console.log(targetFilenames.indexOf(fileName) > 0);
         if (notExcluded) {
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
