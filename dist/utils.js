@@ -59,12 +59,6 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
-            console.log("dir check");
-            console.log(fileName);
-            console.log(targetFolders && targetFolders.indexOf(fileName) > -1);
-            console.log("file check");
-            console.log(fileName);
-            console.log(targetFilenames && targetFilenames.indexOf(fileName) > -1);
             if ((targetFolders &&
                 targetFolders.indexOf(fileName) > -1 &&
                 stats.isDirectory) ||
