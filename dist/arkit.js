@@ -34,8 +34,6 @@ exports.getOutputs = (config) => {
     const files = new parser_1.Parser(config).parse();
     utils_1.trace("Parsed files");
     utils_1.trace(files);
-    console.log("parsed files");
-    console.log(files);
     const outputs = config.final.output;
     const generator = new generator_1.Generator(config, files);
     const converter = new converter_1.Converter(config);
