@@ -72,7 +72,7 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
                 }
             }
             else if ((targetFilenames &&
-                targetFilenames.indexOf(fileName) &&
+                targetFilenames.indexOf(fileName) > 0 &&
                 stats.isFile &&
                 isIncluded) ||
                 (targetFilenames.length === 0 && stats.isFile && isIncluded)) {
