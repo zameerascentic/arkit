@@ -32,13 +32,13 @@ class Config {
         this.extensions = [".js", ".ts", ".jsx", ".tsx", ".vue"];
         this.directory = options.directory;
         this.final = this.getFinalConfig(options);
-        console.log("options");
-        console.log(options);
+        console.log("this final");
+        console.log(this.final);
     }
     getFinalConfig(options) {
         const userConfig = this.getUserConfig(options);
-        console.log("final config");
-        console.log(userConfig);
+        // console.log("final config");
+        // console.log(userConfig);
         return {
             components: this.getFinalComponents(options, userConfig),
             excludePatterns: this.getExcludedPatterns(options, userConfig),
@@ -46,17 +46,17 @@ class Config {
         };
     }
     getUserConfig(options) {
-        console.log("-");
-        console.log("directory and config");
-        console.log(this.directory);
-        console.log(options.config);
-        console.log("-");
+        // console.log("-");
+        // console.log("directory and config");
+        // console.log(this.directory);
+        // console.log(options.config);
+        // console.log("-");
         const userConfigPath = path.resolve(this.directory, options.config || "arkit");
         const userConfig = utils_1.safeRequire(userConfigPath);
         const packageJSONPath = path.resolve(this.directory, "package");
         const packageJSON = utils_1.safeRequire(packageJSONPath);
-        console.log("userconfig");
-        console.log(userConfig);
+        // console.log("userconfig");
+        // console.log(userConfig);
         if (userConfig) {
             utils_1.debug(`Found arkit config in ${userConfigPath}`);
             return userConfig;
@@ -68,8 +68,8 @@ class Config {
     }
     getFinalComponents(options, userConfig) {
         const userComponents = userConfig && userConfig.components;
-        console.log("user componenets");
-        console.log(userComponents);
+        // console.log("user componenets");
+        // console.log(userComponents);
         return userComponents ? utils_1.array(userComponents) : DEFAULT_COMPONENTS;
     }
     getFinalOutputs(options, userConfig) {

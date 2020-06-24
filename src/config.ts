@@ -42,15 +42,15 @@ export class Config implements ConfigBase {
   constructor(options: Options) {
     this.directory = options.directory;
     this.final = this.getFinalConfig(options);
-    console.log("options");
-    console.log(options);
+    console.log("this final");
+    console.log(this.final);
   }
 
   private getFinalConfig(options: Options): ConfigSchema {
     const userConfig = this.getUserConfig(options);
 
-    console.log("final config");
-    console.log(userConfig);
+    // console.log("final config");
+    // console.log(userConfig);
 
     return {
       components: this.getFinalComponents(options, userConfig),
@@ -60,11 +60,11 @@ export class Config implements ConfigBase {
   }
 
   private getUserConfig(options: Options): ConfigSchema | undefined {
-    console.log("-");
-    console.log("directory and config");
-    console.log(this.directory);
-    console.log(options.config);
-    console.log("-");
+    // console.log("-");
+    // console.log("directory and config");
+    // console.log(this.directory);
+    // console.log(options.config);
+    // console.log("-");
     const userConfigPath = path.resolve(
       this.directory,
       options.config || "arkit"
@@ -73,8 +73,8 @@ export class Config implements ConfigBase {
     const packageJSONPath = path.resolve(this.directory, "package");
     const packageJSON = safeRequire<any>(packageJSONPath);
 
-    console.log("userconfig");
-    console.log(userConfig);
+    // console.log("userconfig");
+    // console.log(userConfig);
     if (userConfig) {
       debug(`Found arkit config in ${userConfigPath}`);
       return userConfig;
@@ -91,8 +91,8 @@ export class Config implements ConfigBase {
     userConfig?: ConfigSchema
   ): ComponentSchema[] {
     const userComponents = userConfig && userConfig.components;
-    console.log("user componenets");
-    console.log(userComponents);
+    // console.log("user componenets");
+    // console.log(userComponents);
     return userComponents ? array(userComponents)! : DEFAULT_COMPONENTS;
   }
 
