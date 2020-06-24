@@ -90,8 +90,6 @@ export class FileSystem {
       [],
       targetedFolders
     ).forEach((path) => {
-      console.log("end of get paths");
-      console.log(path);
       if (path.endsWith("**")) {
         this.folderPaths.push(path);
       } else {

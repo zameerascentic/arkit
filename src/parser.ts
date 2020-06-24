@@ -43,8 +43,6 @@ export class Parser {
 
     info("Parsing", progress.total, "files");
 
-    console.log("folder paths");
-    console.log(...this.fs.folderPaths);
     this.fs.folderPaths.forEach((fullPath) => {
       files[fullPath] = { exports: [], imports: {} };
       progress.tick();
@@ -53,7 +51,10 @@ export class Parser {
     this.fs.filePaths.forEach((fullPath) => {
       try {
         files[fullPath] = this.parseFile(fullPath);
+        console.log(fullPath);
       } catch (e) {
+        console.log("error ");
+        console.log(e);
         error(`Error parsing ${fullPath}`);
         trace(e);
       }
