@@ -33,6 +33,13 @@
                     },
                     "type": "array"
                 },
+                "targetFileNames": {
+                    "description": "Folders to target",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
                 "targetFolders": {
                     "description": "Folders to target",
                     "items": {
@@ -47,6 +54,7 @@
             },
             "required": [
                 "patterns",
+                "targetFileNames",
                 "targetFolders",
                 "type"
             ],
