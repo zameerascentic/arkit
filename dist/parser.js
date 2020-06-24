@@ -22,6 +22,8 @@ class Parser {
             width: process.stdout.columns,
         });
         utils_1.info("Parsing", progress.total, "files");
+        console.log("folder paths");
+        console.log(...this.fs.folderPaths);
         this.fs.folderPaths.forEach((fullPath) => {
             files[fullPath] = { exports: [], imports: {} };
             progress.tick();

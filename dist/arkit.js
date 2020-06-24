@@ -28,8 +28,6 @@ exports.getConfig = (options) => {
     const opts = getOptions(options);
     utils_1.info("Options");
     utils_1.info(opts);
-    console.log("Options");
-    console.log(opts);
     return new config_1.Config(opts);
 };
 exports.getOutputs = (config) => {
@@ -65,7 +63,5 @@ exports.arkit = (options) => {
     const config = exports.getConfig(options);
     utils_1.info("Config");
     utils_1.info(config);
-    console.log("config");
-    console.log(config);
     return exports.getOutputs(config);
 };
