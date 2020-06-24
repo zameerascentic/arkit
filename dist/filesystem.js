@@ -60,6 +60,8 @@ class FileSystem {
         });
         logger_1.info("Searching files...");
         utils_1.getPaths(this.config.directory, "", includePatterns, excludePatterns, [], targetedFolders).forEach((path) => {
+            console.log("end of get paths");
+            console.log(path);
             if (path.endsWith("**")) {
                 this.folderPaths.push(path);
             }
