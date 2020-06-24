@@ -61,15 +61,14 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
-            console.log("checking " + fileName);
-            console.log("targetfolder " + targetFolders[0] + " " + targetFolders[1]);
-            console.log(targetFolders.indexOf(fileName) > 0);
             if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
                 if (isIncluded) {
                     suitablePaths.push(path.join(fullPath, "**"));
                 }
                 else {
                     const childPaths = exports.getPaths(mainDirectory, filePath, includePatterns, excludePatterns, history, targetFolders);
+                    console.log("childpaths");
+                    console.log(...childPaths);
                     suitablePaths.push(...childPaths);
                 }
             }

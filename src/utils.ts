@@ -67,9 +67,6 @@ export const getPaths = (
       const stats = getStats(fullPath);
       const isIncluded = match(filePath, includePatterns);
 
-      console.log("checking " + fileName);
-      console.log("targetfolder " + targetFolders[0] + " " + targetFolders[1]);
-      console.log(targetFolders.indexOf(fileName) > 0);
       if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
         if (isIncluded) {
           suitablePaths.push(path.join(fullPath, "**"));
@@ -82,6 +79,8 @@ export const getPaths = (
             history,
             targetFolders
           );
+          console.log("childpaths");
+          console.log(...childPaths);
           suitablePaths.push(...childPaths);
         }
       } else if (stats.isFile && isIncluded) {
