@@ -37,7 +37,8 @@ export const getPaths = (
   includePatterns: string[],
   excludePatterns: string[],
   history: string[] = [],
-  targetFolders: string[] = []
+  targetFolders: string[] = [],
+  targetFilenames: string[] = []
 ): string[] => {
   const root = path.join(mainDirectory, directory);
 
@@ -65,7 +66,10 @@ export const getPaths = (
       const stats = getStats(fullPath);
       const isIncluded = match(filePath, includePatterns);
 
-      if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
+      if (
+        (targetFolders && targetFolders.indexOf(fileName) > 0) ||
+        stats.isDirectory
+      ) {
         if (isIncluded) {
           suitablePaths.push(path.join(fullPath, "**"));
         } else {
@@ -75,11 +79,15 @@ export const getPaths = (
             includePatterns,
             excludePatterns,
             history,
-            targetFolders
+            targetFolders,
+            targetFilenames
           );
           suitablePaths.push(...childPaths);
         }
-      } else if (stats.isFile && isIncluded) {
+      } else if (
+        (targetFilenames && targetFilenames.indexOf(fileName)) ||
+        (stats.isFile && isIncluded)
+      ) {
         suitablePaths.push(fullPath);
       }
     }

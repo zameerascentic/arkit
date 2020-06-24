@@ -38,7 +38,7 @@ exports.getMemoryUsage = () => {
     const memoryUsage = process.memoryUsage();
     return memoryUsage.heapUsed / memoryUsage.heapTotal;
 };
-exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, history = [], targetFolders = []) => {
+exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, history = [], targetFolders = [], targetFilenames = []) => {
     const root = path.join(mainDirectory, directory);
     if (history.includes(root)) {
         logger_1.warn(`Skipping ${root} as it was parsed already`);
@@ -59,16 +59,18 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
-            if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
+            if ((targetFolders && targetFolders.indexOf(fileName) > 0) ||
+                stats.isDirectory) {
                 if (isIncluded) {
                     suitablePaths.push(path.join(fullPath, "**"));
                 }
                 else {
-                    const childPaths = exports.getPaths(mainDirectory, filePath, includePatterns, excludePatterns, history, targetFolders);
+                    const childPaths = exports.getPaths(mainDirectory, filePath, includePatterns, excludePatterns, history, targetFolders, targetFilenames);
                     suitablePaths.push(...childPaths);
                 }
             }
-            else if (stats.isFile && isIncluded) {
+            else if ((targetFilenames && targetFilenames.indexOf(fileName)) ||
+                (stats.isFile && isIncluded)) {
                 suitablePaths.push(fullPath);
             }
         }

@@ -71,10 +71,12 @@ export class FileSystem {
     ];
     const includePatterns: string[] = [];
     const targetedFolders: string[] = [];
+    const targetedFilenames: string[] = [];
 
     components.forEach((component) => {
       includePatterns.push(...component.patterns);
       targetedFolders.push(...component.targetFolders);
+      targetedFilenames.push(...component.targetFileNames);
 
       if (component.excludePatterns) {
         excludePatterns.push(...component.excludePatterns);
@@ -88,7 +90,8 @@ export class FileSystem {
       includePatterns,
       excludePatterns,
       [],
-      targetedFolders
+      targetedFolders,
+      targetedFilenames
     ).forEach((path) => {
       if (path.endsWith("**")) {
         this.folderPaths.push(path);

@@ -7,7 +7,7 @@ export declare const getStats: (path: string) => {
     isFile: boolean;
 };
 export declare const getMemoryUsage: () => number;
-export declare const getPaths: (mainDirectory: string, directory: string, includePatterns: string[], excludePatterns: string[], history?: string[], targetFolders?: string[]) => string[];
+export declare const getPaths: (mainDirectory: string, directory: string, includePatterns: string[], excludePatterns: string[], history?: string[], targetFolders?: string[], targetFilenames?: string[]) => string[];
 export declare const match: (filepath: string, patterns?: string[] | undefined) => boolean;
 export declare const nameMatch: (filepath: string, patterns?: string[] | undefined) => boolean;
 export declare const find: (filepath: string, patterns: string[]) => string | undefined;

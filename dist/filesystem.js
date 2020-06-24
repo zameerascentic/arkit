@@ -51,15 +51,17 @@ class FileSystem {
         ];
         const includePatterns = [];
         const targetedFolders = [];
+        const targetedFilenames = [];
         components.forEach((component) => {
             includePatterns.push(...component.patterns);
             targetedFolders.push(...component.targetFolders);
+            targetedFilenames.push(...component.targetFileNames);
             if (component.excludePatterns) {
                 excludePatterns.push(...component.excludePatterns);
             }
         });
         logger_1.info("Searching files...");
-        utils_1.getPaths(this.config.directory, "", includePatterns, excludePatterns, [], targetedFolders).forEach((path) => {
+        utils_1.getPaths(this.config.directory, "", includePatterns, excludePatterns, [], targetedFolders, targetedFilenames).forEach((path) => {
             if (path.endsWith("**")) {
                 this.folderPaths.push(path);
             }
