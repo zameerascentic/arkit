@@ -55,15 +55,12 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
     return fs.readdirSync(root).reduce((suitablePaths, fileName) => {
         const filePath = path.join(directory, fileName);
         const notExcluded = !excludePatterns.length || !exports.match(filePath, excludePatterns);
-        console.log("checking " + fileName);
-        console.log(...targetFilenames);
-        console.log(targetFilenames.indexOf(fileName) > 0);
         if (notExcluded) {
             const fullPath = path.join(root, fileName);
             const stats = exports.getStats(fullPath);
             const isIncluded = exports.match(filePath, includePatterns);
             if ((targetFolders &&
-                targetFolders.indexOf(fileName) > 0 &&
+                targetFolders.indexOf(fileName) > -1 &&
                 stats.isDirectory) ||
                 (targetFolders.length === 0 && stats.isDirectory)) {
                 if (isIncluded) {
@@ -75,7 +72,7 @@ exports.getPaths = (mainDirectory, directory, includePatterns, excludePatterns, 
                 }
             }
             else if ((targetFilenames &&
-                targetFilenames.indexOf(fileName) > 0 &&
+                targetFilenames.indexOf(fileName) > -1 &&
                 stats.isFile &&
                 isIncluded) ||
                 (targetFilenames.length === 0 && stats.isFile && isIncluded)) {

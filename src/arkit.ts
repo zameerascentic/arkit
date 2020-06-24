@@ -48,6 +48,7 @@ export const getOutputs = (config: Config): Promise<SavedString[]> => {
   trace(files);
   const outputs = config.final.output as OutputSchema[];
   const generator = new Generator(config, files);
+
   const converter = new Converter(config);
   const total = outputs.reduce(
     (total, output) => total + array(output.path)!.length,

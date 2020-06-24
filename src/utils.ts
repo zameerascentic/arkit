@@ -61,10 +61,6 @@ export const getPaths = (
     const notExcluded =
       !excludePatterns.length || !match(filePath, excludePatterns);
 
-    console.log("checking " + fileName);
-    console.log(...targetFilenames);
-    console.log(targetFilenames.indexOf(fileName) > 0);
-
     if (notExcluded) {
       const fullPath = path.join(root, fileName);
       const stats = getStats(fullPath);
@@ -72,7 +68,7 @@ export const getPaths = (
 
       if (
         (targetFolders &&
-          targetFolders.indexOf(fileName) > 0 &&
+          targetFolders.indexOf(fileName) > -1 &&
           stats.isDirectory) ||
         (targetFolders.length === 0 && stats.isDirectory)
       ) {
@@ -92,7 +88,7 @@ export const getPaths = (
         }
       } else if (
         (targetFilenames &&
-          targetFilenames.indexOf(fileName) > 0 &&
+          targetFilenames.indexOf(fileName) > -1 &&
           stats.isFile &&
           isIncluded) ||
         (targetFilenames.length === 0 && stats.isFile && isIncluded)
