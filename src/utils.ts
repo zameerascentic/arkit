@@ -69,7 +69,7 @@ export const getPaths = (
 
       console.log("checking " + fileName);
       console.log("targetfolder " + targetFolders[0] + " " + targetFolders[1]);
-      console.log("index " + targetFolders.indexOf(fileName) > 0);
+      console.log(targetFolders.indexOf(fileName) > 0);
       if (stats.isDirectory && targetFolders.indexOf(fileName) > 0) {
         if (isIncluded) {
           suitablePaths.push(path.join(fullPath, "**"));
